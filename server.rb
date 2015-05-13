@@ -1,10 +1,28 @@
 require 'socket'                # Get sockets from stdlib
 
-server = TCPServer.open(10001)   # Socket to listen on port 10001
-loop {                          # Servers run forever
+def init(port)
+  begin
+    server = TCPServer.open(port)
+    puts "Trying start a server on port #{port}"
+    listener(server)
+
+  rescue Exception => e
+    puts "We caught an error while socket creation: " + e.message
+  end
+end
+
+
+def listener(server)
+  puts "Server was started"
+loop {
   Thread.start(server.accept) do |client|
     client.puts(Time.now.ctime) # Send the time to the client
     client.puts "Closing the connection. Bye!"
     client.close                # Disconnect from the client
   end
 }
+
+end
+
+#Run the server
+init(10001)
