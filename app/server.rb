@@ -19,7 +19,7 @@ loop {
     command = client.gets
     client.puts(Time.now.ctime) # Send the time to the client
     client.puts(command) # Return back to client it own message
-    client.puts "Closing the connection. Bye!"
+    client.puts "Thanks for a command! Closing the connection."
     client.close                # Disconnect from the client
   end
 }
