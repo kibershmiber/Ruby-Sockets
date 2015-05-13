@@ -16,7 +16,9 @@ def listener(server)
   puts "Server was started"
 loop {
   Thread.start(server.accept) do |client|
+    command = client.gets
     client.puts(Time.now.ctime) # Send the time to the client
+    client.puts(command) # Return back to client it own message
     client.puts "Closing the connection. Bye!"
     client.close                # Disconnect from the client
   end
